@@ -7,13 +7,7 @@
 5. 함수 분리
 
 */
-import {
-  attr,
-  getNode,
-  removeClass,
-  addClass,
-  typeError,
-} from "../lib/index.js";
+import { attr, getNode, removeClass, addClass } from "../lib/index.js";
 const nav = getNode(".nav");
 const navLi = nav.querySelectorAll("li");
 const visual = getNode(".visual");
