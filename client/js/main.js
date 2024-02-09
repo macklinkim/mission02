@@ -31,23 +31,35 @@ function loadAudio() {
 function handleClick(e) {
   e.preventDefault();
   const target = e.target.closest("li");
-  attr(visualImg, "src", e.target.src);
+  const index = attr(target, "data-index") - 1;
+  setImage(e, target);
+  setBgColor(index);
+  setName(index);
+  playAudio(index);
+}
+nav.addEventListener("click", _.throttle(handleClick, 300));
+
+function setImage(event, target) {
+  attr(visualImg, "src", event.target.src);
+  attr(visualImg, "alt", event.target.alt);
   [...navLi].forEach((e) => {
     removeClass(e);
   });
   if (!target) return;
   addClass(target, "is-active");
-
-  audios[attr(target, "data-index") - 1].play();
-  // counter();
 }
-nav.addEventListener("click", _.throttle(handleClick, 1000));
 
-// function createCounter() {
-//   let count = 0;
-//   return function () {
-//     count++;
-//     console.log(count);
-//   };
-// }
-// const counter = createCounter();
+function setBgColor(index) {
+  const colorA = data[index].color[0];
+  const colorB = data[index].color[1];
+  document.body.style.background = `linear-gradient(to bottom, ${colorA},${colorB})`;
+}
+
+function playAudio(index) {
+  audios[index].play();
+}
+
+function setName(index) {
+  const nickName = document.querySelector(".nickName");
+  nickName.textContent = data[index].name;
+}
