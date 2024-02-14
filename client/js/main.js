@@ -12,6 +12,7 @@ const nav = getNode(".nav");
 const navLi = nav.querySelectorAll("li");
 const visual = getNode(".visual");
 const visualImg = visual.querySelector("img");
+const nickName = document.querySelector(".nickName");
 const audios = loadAudio();
 
 function loadAudio() {
@@ -34,12 +35,12 @@ function handleClick(e) {
 nav.addEventListener("click", _.throttle(handleClick, 300));
 
 function setImage(event, target) {
+  if (!target) return;
   attr(visualImg, "src", event.target.src);
   attr(visualImg, "alt", event.target.alt);
   [...navLi].forEach((e) => {
     removeClass(e);
   });
-  if (!target) return;
   addClass(target, "is-active");
 }
 
@@ -54,6 +55,5 @@ function playAudio(index) {
 }
 
 function setName(index) {
-  const nickName = document.querySelector(".nickName");
   nickName.textContent = data[index].name;
 }
